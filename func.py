@@ -3,7 +3,7 @@ import sys
 
 from resource import getrusage as resource_usage, RUSAGE_SELF
 from time import time as timestamp
-import ctypes
+
 
 def unix_time(function):
     '''Return `real`, `sys` and `user` elapsed time, like UNIX's command `time`
@@ -22,6 +22,7 @@ def unix_time(function):
         end_time - start_time,
         end_resources.ru_utime - start_resources.ru_utime,
         end_resources.ru_stime - start_resources.ru_stime)
+
 
 def trial_division(n: int) -> int:
     """
@@ -43,9 +44,9 @@ def trial_division(n: int) -> int:
     # n is prime
     return 1
 
+
 def print_factors():
-    fun = ctypes.CDLL("./lib_factors_functions.so")
-    fun.trial_division.argtypes = [ctypes.c_long]
+
     with open(sys.argv[1], 'r') as prime:
         line = prime.readline()
         while line != '':
