@@ -3,11 +3,7 @@ import sys
 
 from resource import getrusage as resource_usage, RUSAGE_SELF
 from time import time as timestamp
-
-if sys.argv == 1:
-    print("give two arg")
-    sys.exit()
-
+import ctypes
 
 def unix_time(function):
     '''Return `real`, `sys` and `user` elapsed time, like UNIX's command `time`
@@ -48,7 +44,8 @@ def trial_division(n: int) -> int:
     return 1
 
 def print_factors():
-
+    fun = ctypes.CDLL("./lib_factors_functions.so")
+    fun.trial_division.argtypes = [ctypes.c_long]
     with open(sys.argv[1], 'r') as prime:
         line = prime.readline()
         while line != '':
